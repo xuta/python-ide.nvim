@@ -13,7 +13,6 @@ endif
 set background=dark
 
 set noswapfile
-set nobackup
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -36,14 +35,17 @@ set scrolloff=6
 
 set mouse=a
 
-set noshowmode  " airline shows mode already
+" airline shows mode already
+set noshowmode
 
 set confirm
 set visualbell noerrorbells
 set history=1000
 set autowrite
 
-set shortmess+=c
+set autoread
+au CursorHold * checktime
+au FocusGained,BufEnter * :checktime
 
 set splitright
 set splitbelow
@@ -56,20 +58,31 @@ set incsearch
 """ Mapping
 
 " move to end of line in insert mode
-inoremap <C-e> <C-o>$  " <C-o> to switch to normal mode for one command
+" <C-o> to switch to normal mode for one command
+inoremap <C-e> <C-o>$
 
 " close file
 nmap <C-w> :q<cr>
 
 " easy split movement
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap wh <C-w>h
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wl <C-w>l
 
 " move splitted windows
-nnoremap <C-h>h <C-w>H
-nnoremap <C-j>j <C-w>J
+nnoremap wb <C-w>H
+nnoremap wo <C-w>J
+
+" move on buffer
+nnoremap bp :bprev<CR>
+nnoremap bn :bnext<CR>
+
+"deletes all buffers except those with unwritten changes
+nnoremap bc :bufdo! bd<CR>
+
+" new tab
+nnoremap tn :tabnew<CR>
 
 " Remove all trailing whitespace by pressing C-s
 nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -80,12 +93,14 @@ let g:PLUGIN_HOME=expand(stdpath('data') . '/plugged')
 
 call plug#begin(g:PLUGIN_HOME)
 
-" sorry NerdTree, you're good, but ranger is the best
+" sorry NerdTree, you're good, but ranger + LeaderF are great combination
 Plug 'rbgrouleff/bclose.vim'  " required by ranger.vim'
 Plug 'francoiscabrol/ranger.vim'
-" Plug 'iberianpig/ranger-explorer.vim'  " TODO: delete
 
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+" True IDE
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -107,6 +122,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'lifepillar/vim-gruvbox8'
 
+" UX
+Plug 'yuttie/comfortable-motion.vim'
+
 if executable('ctags')
     Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen'] }
 endif
@@ -120,20 +138,15 @@ call plug#end()
 
 
 "" ranger
+let g:bclose_no_plugin_maps = 1
+let g:ranger_map_keys = 0
 let g:NERDTreeHijackNetrw = 0  " add this line if you use NERDTree
 let g:ranger_replace_netrw = 1  " open ranger when vim open a directory
 nnoremap rg :Ranger<CR>
 
-" let g:ranger_explorer_keymap_edit    = 'ro'
-" let g:ranger_explorer_keymap_tabedit = 'rt'
-" let g:ranger_explorer_keymap_split   = 'rs'
-" let g:ranger_explorer_keymap_vsplit  = 'rv'
-" 
-" nnoremap <silent><Leader>r :RangerOpenCurrentDir<CR>
-" nnoremap <silent><Leader>rp :RangerOpenProjectRootDir<CR>
-
 
 "" LeaderF
+let g:Lf_WindowPosition = 'popup'
 let g:Lf_UseCache = 0
 let g:Lf_WildIgnore = {
     \ 'dir': ['.git', '__pycache__', '.DS_Store'],
@@ -144,6 +157,7 @@ let g:Lf_WildIgnore = {
     \}
 
 nnoremap <silent> <leader>f :Leaderf file --popup<CR>
+nnoremap <silent> <leader>r :Leaderf rg --popup<CR>
 
 
 "" tagbar
@@ -176,5 +190,122 @@ let g:asyncrun_open = 20
 colorscheme gruvbox8_hard
 
 
-"" custom
+"" comfortable-motion
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+
+nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+
+noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+
+
+"" coc
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=200
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Symbol renaming.
+nmap <leader>cr <Plug>(coc-rename)
+
+" Show all diagnostics.
+nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Manage extensions.
+nnoremap <silent> <leader>me  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <leader>mc  :<C-u>CocList commands<cr>
+
+hi CocErrorSign  ctermfg=LightRed
+hi CocWarningSign  ctermfg=LightYellow
+
+
+"" Custom with AsyncRun
 nnoremap <silent> <F10> :AsyncRun python -u "%"<CR>
+
+command! -nargs=? Black     :AsyncRun black -S "%" <f-args>
+command! -nargs=? Flake8    :AsyncRun flake8 "%" <f-args>
+command! -nargs=0 Pytest    :AsyncRun pytest "%"
+command! -nargs=? PytestF   :AsyncRun pytest <f-args>
