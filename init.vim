@@ -25,9 +25,12 @@ scriptencoding utf-8
 
 set linebreak
 set showbreak=↪
-set nofoldenable
 set breakindent
 set wrap
+
+set foldmethod=indent
+set foldnestmax=2
+set nofoldenable
 
 set cursorline
 set colorcolumn=99
@@ -81,6 +84,10 @@ nnoremap bn :bnext<CR>
 "deletes all buffers except those with unwritten changes
 nnoremap bc :bufdo! bd<CR>
 
+" fold
+nnoremap zz za
+vnoremap zz zf
+
 " new tab
 nnoremap tn :tabnew<CR>
 
@@ -109,12 +116,13 @@ Plug 'mhinz/vim-signify'
 " highlighting
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
-" handy editor
+" handy and smart editor
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug '907th/vim-auto-save'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'Yggdroot/indentLine'
 
 " status line, color and theme
 Plug 'vim-airline/vim-airline'
@@ -142,7 +150,7 @@ let g:bclose_no_plugin_maps = 1
 let g:ranger_map_keys = 0
 let g:NERDTreeHijackNetrw = 0  " add this line if you use NERDTree
 let g:ranger_replace_netrw = 1  " open ranger when vim open a directory
-nnoremap rg :Ranger<CR>
+nnoremap <leader>r :Ranger<CR>
 
 
 "" LeaderF
@@ -156,8 +164,8 @@ let g:Lf_WildIgnore = {
     \ '*.rmvb']
     \}
 
-nnoremap <silent> <leader>f :Leaderf file --popup<CR>
-nnoremap <silent> <leader>r :Leaderf rg --popup<CR>
+nnoremap <silent> <leader>f :Leaderf file<CR>
+nnoremap <silent> <leader>s :Leaderf rg<CR>
 
 
 "" tagbar
