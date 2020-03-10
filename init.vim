@@ -37,6 +37,7 @@ set colorcolumn=99
 set scrolloff=6
 
 set mouse=a
+set clipboard+=unnamed,unnamedplus
 
 " airline shows mode already
 set noshowmode
