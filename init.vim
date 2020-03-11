@@ -87,8 +87,8 @@ nnoremap wwh <C-w>H
 nnoremap wwj <C-w>J
 
 " tmux-style splitting
-nnoremap w" :vsplit<CR>
-nnoremap w% :split<CR>
+nnoremap w% :vsplit<CR>
+nnoremap w" :split<CR>
 
 " move on buffer
 nnoremap bn :bnext<CR>
