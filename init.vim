@@ -154,7 +154,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'yuttie/comfortable-motion.vim'
 
 if executable('ctags')
-    Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen'] }
+    Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle'] }
 endif
 
 Plug 'skywind3000/asyncrun.vim'
@@ -194,7 +194,6 @@ nnoremap <silent> <leader>s :Leaderf rg<CR>
 
 "" tagbar
 nnoremap <silent> <leader>t :TagbarToggle<CR>
-nnoremap <silent> <leader>to :TagbarOpen<CR>
 
 
 "" vim-auto-save
