@@ -124,6 +124,7 @@ Plug '907th/vim-auto-save'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
+Plug 'matze/vim-move'
 
 " status line, color and theme
 Plug 'vim-airline/vim-airline'
@@ -190,6 +191,12 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_highlighting_cache = 1
 
+"" vim-move
+let g:move_map_keys = 0
+vmap <C-down> <Plug>MoveBlockDown
+vmap <C-up> <Plug>MoveBlockUp
+nmap <C-down> <Plug>MoveLineDown
+nmap <C-up> <Plug>MoveLineUp
 
 "" asyncrun
 let g:asyncrun_open = 20
