@@ -111,6 +111,9 @@ cnoremap jk <C-c>
 nnoremap zz za
 vnoremap zz zf
 
+" undo by C-z
+inoremap <C-z> <C-o>u
+
 " Remove all trailing whitespace by pressing C-s
 nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
