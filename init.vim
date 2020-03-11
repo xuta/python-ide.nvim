@@ -20,6 +20,7 @@ set expandtab
 set number relativenumber
 set ignorecase smartcase
 
+set encoding=UTF-8
 set fileencoding=utf-8
 scriptencoding utf-8
 
@@ -68,29 +69,43 @@ inoremap <C-e> <C-o>$
 " close file
 nmap <C-w> :q<cr>
 
+" Open new line below and above current line
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
 " easy split movement
 nnoremap wh <C-w>h
 nnoremap wj <C-w>j
 nnoremap wk <C-w>k
 nnoremap wl <C-w>l
 
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
 " move splitted windows
-nnoremap wb <C-w>H
-nnoremap wo <C-w>J
+nnoremap wwh <C-w>H
+nnoremap wwj <C-w>J
 
 " move on buffer
-nnoremap bp :bprev<CR>
 nnoremap bn :bnext<CR>
+nnoremap bp :bprev<CR>
 
-"deletes all buffers except those with unwritten changes
+" deletes all buffers except those with unwritten changes
 nnoremap bc :bufdo! bd<CR>
+
+" tab
+nnoremap tt :tabnew<CR>
+nnoremap tn :tabn<cr>
+nnoremap tp :tabp<cr>
+
+" jk | Escaping!
+inoremap jk <Esc>
+xnoremap jk <Esc>
+cnoremap jk <C-c>
 
 " fold
 nnoremap zz za
 vnoremap zz zf
-
-" new tab
-nnoremap tn :tabnew<CR>
 
 " Remove all trailing whitespace by pressing C-s
 nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -101,10 +116,11 @@ let g:PLUGIN_HOME=expand(stdpath('data') . '/plugged')
 
 call plug#begin(g:PLUGIN_HOME)
 
-" sorry NerdTree, you're good, but ranger + LeaderF are great combination
-Plug 'rbgrouleff/bclose.vim'  " required by ranger.vim'
+" File managers
+" bclose is required by ranger.vim
+Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim'
-
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " True IDE
@@ -125,12 +141,14 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
 Plug 'matze/vim-move'
+Plug 'skywind3000/vim-quickui'
 
 " status line, color and theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'lifepillar/vim-gruvbox8'
+Plug 'ryanoasis/vim-devicons'
 
 " UX
 Plug 'yuttie/comfortable-motion.vim'
@@ -145,6 +163,10 @@ call plug#end()
 
 
 """ Plugins setting
+
+
+"" Nerdtree
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 
 "" ranger
@@ -204,6 +226,10 @@ let g:asyncrun_open = 20
 
 "" gruvbox8
 colorscheme gruvbox8_hard
+
+
+"" vim-devicons
+let g:webdevicons_enable = 1
 
 
 "" comfortable-motion
