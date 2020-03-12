@@ -173,14 +173,14 @@ call plug#end()
 
 
 "" Nerdtree
-nnoremap <leader>n :NERDTreeTogglke<cr>
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 
 "" ranger
 let g:bclose_no_plugin_maps = 1
 let g:ranger_map_keys = 0
-let g:NERDTreeHijackNetrw = 0  " add this line if you use NERDTree
-let g:ranger_replace_netrw = 1  " open ranger when vim open a directory
+let g:NERDTreeHijackNetrw = 0
+let g:ranger_replace_netrw = 1
 nnoremap <leader>r :Ranger<CR>
 
 
@@ -249,7 +249,7 @@ let g:webdevicons_enable = 1
 
 "" comfortable-motion
 let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+let g:comfortable_motion_impulse_multiplier = 1
 
 nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
