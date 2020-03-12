@@ -148,7 +148,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/indentLine'
 Plug 'matze/vim-move'
-Plug 'skywind3000/vim-quickui'
+Plug 'easymotion/vim-easymotion'
 
 " status line, color and theme
 Plug 'vim-airline/vim-airline'
@@ -173,7 +173,7 @@ call plug#end()
 
 
 "" Nerdtree
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeTogglke<cr>
 
 
 "" ranger
@@ -213,11 +213,19 @@ let g:auto_save_silent = 0
 let g:signify_vcs_list = [ 'git' ]
 
 
+"" vim-easymotion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+
 "" vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_highlighting_cache = 1
+
 
 "" vim-move
 let g:move_map_keys = 0
@@ -225,6 +233,7 @@ vmap <C-down> <Plug>MoveBlockDown
 vmap <C-up> <Plug>MoveBlockUp
 nmap <C-down> <Plug>MoveLineDown
 nmap <C-up> <Plug>MoveLineUp
+
 
 "" asyncrun
 let g:asyncrun_open = 20
