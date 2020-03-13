@@ -60,64 +60,6 @@ set hlsearch
 set incsearch
 
 
-""" Mapping
-
-" move to end of line in insert mode
-" <C-o> to switch to normal mode for one command
-inoremap <C-e> <C-o>$
-
-" close file
-nmap <C-w> :q<cr>
-
-" Open new line below and above current line
-nnoremap <leader>o o<esc>
-nnoremap <leader>O O<esc>
-
-" easy split movement
-nnoremap wh <C-w>h
-nnoremap wj <C-w>j
-nnoremap wk <C-w>k
-nnoremap wl <C-w>l
-
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
-
-" move splitted windows
-nnoremap wwh <C-w>H
-nnoremap wwj <C-w>J
-
-" tmux-style splitting
-nnoremap w% :vsplit<CR>
-nnoremap w" :split<CR>
-
-" move on buffer
-nnoremap bn :bnext<CR>
-nnoremap bp :bprev<CR>
-
-" deletes all buffers except those with unwritten changes
-nnoremap bc :bufdo! bd<CR>
-
-" tab
-nnoremap tt :tabnew<CR>
-nnoremap tn :tabn<cr>
-nnoremap tp :tabp<cr>
-
-" jk | Escaping!
-inoremap jk <Esc>
-xnoremap jk <Esc>
-cnoremap jk <C-c>
-
-" fold
-nnoremap zz za
-vnoremap zz zf
-
-" undo by C-z
-inoremap <C-z> <C-o>u
-
-" Remove all trailing whitespace by pressing C-s
-nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-
 """ Vim-plug
 let g:PLUGIN_HOME=expand(stdpath('data') . '/plugged')
 
@@ -366,3 +308,63 @@ command! -nargs=? Black     :AsyncRun black -S "%" <f-args>
 command! -nargs=? Flake8    :AsyncRun flake8 "%" <f-args>
 command! -nargs=0 Pytest    :AsyncRun pytest "%"
 command! -nargs=? PytestF   :AsyncRun pytest <f-args>
+
+
+""" Mapping
+
+" move to end of line in insert mode
+" <C-o> to switch to normal mode for one command
+inoremap <C-e> <C-o>$
+
+" close file
+nmap <C-w> :q<cr>
+
+" Open new line below and above current line
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
+" easy split movement
+nnoremap wh <C-w>h
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wl <C-w>l
+
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
+" move splitted windows
+nnoremap wwh <C-w>H
+nnoremap wwj <C-w>J
+
+" tmux-style splitting
+nnoremap w% :vsplit<CR>
+nnoremap w" :split<CR>
+
+" move on buffer
+nnoremap bn :bnext<CR>
+nnoremap bp :bprev<CR>
+
+" tab
+nnoremap tt :tabnew<CR>
+nnoremap tn :tabn<cr>
+nnoremap tp :tabp<cr>
+
+" fast movement
+nnoremap <C-j> 2j
+nnoremap <C-k> 2k
+vnoremap <C-j> 2j
+vnoremap <C-k> 2k
+
+" fold
+nnoremap zz za
+vnoremap zz zf
+
+" undo by C-z
+inoremap <C-z> <C-o>u
+
+" Remove all trailing whitespace by pressing C-s
+nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" Pycharm keys binding: tab to indent multiple lines in visual mode
+vnoremap <tab> >
+vnoremap <S-tab> <
