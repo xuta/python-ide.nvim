@@ -69,6 +69,7 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " True IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'thaerkh/vim-workspace'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -301,6 +302,12 @@ hi CocErrorSign  ctermfg=LightRed
 hi CocWarningSign  ctermfg=LightYellow
 
 
+"" vim-workspace
+set sessionoptions-=blank
+let g:workspace_autosave_always = 1
+let g:workspace_autosave_ignore = ['gitcommit']
+
+
 """ Mapping
 
 " move to end of line in insert mode
@@ -359,6 +366,9 @@ nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " Pycharm keys binding: tab to indent multiple lines in visual mode
 vnoremap <tab> >
 vnoremap <S-tab> <
+
+" Exit term mode
+tnoremap <Esc> <C-\><C-n>
 
 "" Custom commands with AsyncRun
 nnoremap <silent> <F10> :AsyncRun python -u "%"<CR>
