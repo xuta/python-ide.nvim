@@ -1,9 +1,4 @@
 """ General
-
-let g:is_mac = has('macunix')
-let g:is_linux = has('unix') && !has('macunix')
-let g:nvim_system_wide = 0
-
 let mapleader = " " 
 let g:mapleader = " "
 
@@ -106,6 +101,7 @@ if executable('ctags')
     Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle'] }
 endif
 
+" more weapon
 Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
@@ -149,6 +145,10 @@ nnoremap <silent> <leader>t :TagbarToggle<CR>
 let g:auto_save = 1
 let g:auto_save_events = ['InsertLeave', 'TextChanged']
 let g:auto_save_silent = 0
+
+
+"" vim-fugitive
+set diffopt+=vertical
 
 
 "" vim-signify
@@ -301,15 +301,6 @@ hi CocErrorSign  ctermfg=LightRed
 hi CocWarningSign  ctermfg=LightYellow
 
 
-"" Custom with AsyncRun
-nnoremap <silent> <F10> :AsyncRun python -u "%"<CR>
-
-command! -nargs=? Black     :AsyncRun black -S "%" <f-args>
-command! -nargs=? Flake8    :AsyncRun flake8 "%" <f-args>
-command! -nargs=0 Pytest    :AsyncRun pytest "%"
-command! -nargs=? PytestF   :AsyncRun pytest <f-args>
-
-
 """ Mapping
 
 " move to end of line in insert mode
@@ -368,3 +359,11 @@ nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " Pycharm keys binding: tab to indent multiple lines in visual mode
 vnoremap <tab> >
 vnoremap <S-tab> <
+
+"" Custom commands with AsyncRun
+nnoremap <silent> <F10> :AsyncRun python -u "%"<CR>
+
+command! -nargs=? Black     :AsyncRun black -S "%" <f-args>
+command! -nargs=? Flake8    :AsyncRun flake8 "%" <f-args>
+command! -nargs=0 Pytest    :AsyncRun pytest "%"
+command! -nargs=? PytestF   :AsyncRun pytest <f-args>
