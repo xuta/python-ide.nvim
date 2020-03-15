@@ -69,7 +69,7 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " True IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'thaerkh/vim-workspace'
+Plug 'xuta/vim-xspace'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -300,12 +300,6 @@ nnoremap <silent> <leader>mc  :<C-u>CocList commands<cr>
 
 hi CocErrorSign  ctermfg=LightRed
 hi CocWarningSign  ctermfg=LightYellow
-
-
-"" vim-workspace
-set sessionoptions-=blank
-let g:workspace_autosave_always = 1
-let g:workspace_autosave_ignore = ['gitcommit']
 
 
 """ Mapping
