@@ -308,10 +308,9 @@ hi CocWarningSign  ctermfg=LightYellow
 
 
 """ Mapping
-
-" go to end of line of insert mode by Ctrl-i
-inoremap <C-i> <C-o>$
-nnoremap <C-i>i i<C-o>$
+" go to end of line of insert mode by Ctrl-]
+inoremap <C-]> <C-o>$
+nnoremap <C-]> i<C-o>$
 
 " Open new line below and above current line
 nnoremap <leader>o o<esc>
