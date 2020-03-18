@@ -94,6 +94,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-markdown'
 
 " UX
 Plug 'yuttie/comfortable-motion.vim'
@@ -188,6 +189,10 @@ colorscheme gruvbox8_hard
 
 "" vim-devicons
 let g:webdevicons_enable = 1
+
+"" vim-markdown
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sql', 'vim']
+let g:markdown_syntax_conceal = 0
 
 
 "" comfortable-motion
@@ -304,12 +309,9 @@ hi CocWarningSign  ctermfg=LightYellow
 
 """ Mapping
 
-" move to end of line in insert mode
-" <C-o> to switch to normal mode for one command
-inoremap <C-e> <C-o>$
-
-" close file
-nmap <C-w> :q<cr>
+" go to end of line of insert mode by Ctrl-i
+inoremap <C-i> <C-o>$
+nnoremap <C-i>i i<C-o>$
 
 " Open new line below and above current line
 nnoremap <leader>o o<esc>
@@ -321,6 +323,7 @@ nnoremap wj <C-w>j
 nnoremap wk <C-w>k
 nnoremap wl <C-w>l
 
+" (Shift) Tab to change windows
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
@@ -336,6 +339,9 @@ nnoremap w" :split<CR>
 nnoremap bn :bnext<CR>
 nnoremap bp :bprev<CR>
 
+" deletes all buffers except those with unwritten changes
+command! -nargs=0 BufferClear    :bufdo! bd
+
 " tab
 nnoremap tt :tabnew<CR>
 nnoremap tn :tabn<cr>
@@ -347,21 +353,32 @@ nnoremap <C-k> 2k
 vnoremap <C-j> 2j
 vnoremap <C-k> 2k
 
-" fold
+" fold/unfold by zz because za is not handy
 nnoremap zz za
-vnoremap zz zf
 
-" undo by C-z
+" undo by Ctrl-z
 inoremap <C-z> <C-o>u
 
-" Remove all trailing whitespace by pressing C-s
+" select all by Ctr-a in visual mode
+nnoremap <C-a> <esc>ggVG<CR>
+
+" close file by Ctrl-w
+nnoremap <C-w> :q<cr>
+
+" Clear search highlight by Ctr-l
+nnoremap <silent> <C-l> :nohl<CR>
+
+" Remove all trailing whitespace by pressing Ctrl-s
 nnoremap <C-s> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" close current file by Ctrl-w
+nnoremap <C-w> :q<cr>
 
 " Pycharm keys binding: tab to indent multiple lines in visual mode
 vnoremap <tab> >
 vnoremap <S-tab> <
 
-" Exit term mode
+" Exit termimal mode
 tnoremap <Esc> <C-\><C-n>
 
 "" Custom commands with AsyncRun
