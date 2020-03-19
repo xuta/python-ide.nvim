@@ -2,9 +2,8 @@
 let mapleader = " " 
 let g:mapleader = " "
 
-if $TERM == "xterm-256color"
-    set termguicolors
-endif
+set t_Co=256
+set termguicolors
 set background=dark
 
 set noswapfile
@@ -92,7 +91,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'ayu-theme/ayu-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-markdown'
 
@@ -183,8 +182,10 @@ nmap <C-up> <Plug>MoveLineUp
 let g:asyncrun_open = 20
 
 
-"" gruvbox8
-colorscheme gruvbox8_hard
+"" ayu
+let g:airline_theme='ayu_dark'
+let ayucolor="dark"
+colorscheme ayu
 
 
 "" vim-devicons
@@ -358,7 +359,7 @@ nnoremap zz za
 " undo by Ctrl-z
 inoremap <C-z> <C-o>u
 
-" select all by Ctr-a in visual mode
+" select all by Ctr-a in normal mode
 nnoremap <C-a> <esc>ggVG<CR>
 
 " close file by Ctrl-w
